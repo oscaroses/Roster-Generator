@@ -10,18 +10,18 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-var theTeam = []
+var employees = []
 
 function createTeam() {
     inquirer.prompt([
         {
             type: "list",
-            name: "memberChoice",
+            name: "empType",
             message: "What type of team member are you?",
-            choices: ["Manager", "Engineer", "Intern", "No more employees"]
+            choices: ["Manager", "Engineer", "Intern", "No more members"]
         }])
-        .then(userChoice => {
-            switch (userChoice.memberChoice) {
+        .then(userInput => {
+            switch (userInput.empType) {
                 case "Manager":
                     addManager();
                     break;
@@ -34,8 +34,9 @@ function createTeam() {
                     addIntern();
                     break;
 
-                case "Finish.":
-                    render(theTeam);
+                case "No more members":
+                    console.log(employees);
+                    render(employees);
                     break
             }
         })
@@ -45,29 +46,29 @@ function createTeam() {
             {
                 type: "input",
                 message: "What is this team members name",
-                name: "managerName"
+                name: "manName"
             },
             {
                 type: "input",
                 message: "Assign an ID number for this employee",
-                name: "managerID"
+                name: "manID"
             },
             {
                 type: "input",
                 message: "Provide an email for this team member",
-                name: "managerEmail"
+                name: "manEmail"
             },
             {
                 type: "input",
                 message: "What is your office number?",
-                name: "managerOfficeNumber"
+                name: "manOfficeNumber"
             }
-        ]).then(userChoice => {
-            console.log(userChoice);
+        ]).then(userInput => {
+            console.log(userInput);
 
-            const manager = new Manager(userChoice.managerName, userChoice.managerID, userChoice.managerEmail, userChoice.managerOfficeNumber)
+            const manager = new Manager(userInput.manName, userInput.manID, userInput.manEmail, userInput.manOfficeNumber)
 
-            theTeam.push(manager)
+            employees.push(manager)
             createTeam();
         })
     }
@@ -78,29 +79,29 @@ function createTeam() {
             {
                 type: "input",
                 message: "What is this team members name?",
-                name: "engineerName"
+                name: "engName"
             },
             {
                 type: "input",
                 message: "Assign an ID number for this employee",
-                name: "engineerID"
+                name: "engID"
             },
             {
                 type: "input",
                 message: "Provide an email for this team member",
-                name: "engineerEmail"
+                name: "engEmail"
             },
             {
                 type: "input",
                 message: "What is your GitHub username?",
-                name: "gitHubUsername"
+                name: "gitUsername"
             }
-        ]).then(userChoice => {
-            console.log(userChoice);
+        ]).then(userInput => {
+            console.log(userInput);
 
-            const engineer = new Engineer(userChoice.engineerName, userChoice.engineerID, userChoice.engineerEmail, userChoice.gitHubUsername)
+            const engineer = new Engineer(userInput.engName, userInput.engID, userInput.engEmail, userInput.gitUsername)
 
-            theTeam.push(engineer)
+            employees.push(engineer)
             createTeam();
         })
     }
@@ -110,29 +111,29 @@ function createTeam() {
             {
                 type: "input",
                 message: "What is this team members name?",
-                name: "internName"
+                name: "intName"
             },
             {
                 type: "input",
                 message: "Assign an ID number for this employee",
-                name: "internID"
+                name: "intID"
             },
             {
                 type: "input",
                 message: "Provide an email for this team member",
-                name: "internEmail"
+                name: "intEmail"
             },
             {
                 type: "input",
                 message: "What is your alma mater?",
-                name: "internSchool"
+                name: "intSchool"
             }
-        ]).then(userChoice => {
-            console.log(userChoice);
+        ]).then(userInput => {
+            console.log(userInput);
 
-            const intern = new Intern(userChoice.internName, userChoice.internID, userChoice.internEmail, userChoice.internSchool)
+            const intern = new Intern(userInput.intName, userInput.intID, userInput.intEmail, userInput.intSchool)
 
-            theTeam.push(intern)
+            employees.push(intern)
             createTeam();
         })
     }
@@ -140,22 +141,4 @@ function createTeam() {
 
 createTeam()
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+module.exports = employees
