@@ -12,6 +12,18 @@ const render = require("./lib/htmlRenderer");
 
 var employees = []
 
+function createManager() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "man"
+
+        }
+    ])
+}
+
+
+
 function createTeam() {
     inquirer.prompt([
         {
@@ -35,8 +47,11 @@ function createTeam() {
                     break;
 
                 case "No more members":
-                    console.log(employees);
-                    render(employees)
+                    let html = render(employees)
+                    fs.writeFile(outputPath, html, (err) => {
+                        if (err) throw err;
+                        console.log('The html has been created.');
+                    });
                     break
             }
         })
@@ -45,17 +60,17 @@ function createTeam() {
         inquirer.prompt([
             {
                 type: "input",
-                message: "What is this team members name",
+                message: "What is this team managers name?",
                 name: "manName"
             },
             {
                 type: "input",
-                message: "Assign an ID number for this employee",
+                message: "Assign an ID number for the manager",
                 name: "manID"
             },
             {
                 type: "input",
-                message: "Provide an email for this team member",
+                message: "Provide an email for the manager",
                 name: "manEmail"
             },
             {
@@ -72,7 +87,6 @@ function createTeam() {
             createTeam();
         })
     }
-
 
     function addEngineer() {
         inquirer.prompt([
