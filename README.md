@@ -42,4 +42,4 @@ If you have any questions or suggestions, please contact me here:
 
 ## Video
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/A7leCZ_Ad_k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+https://www.youtube.com/embed/A7leCZ_Ad_k
